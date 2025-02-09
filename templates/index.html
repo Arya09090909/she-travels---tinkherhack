@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile - SHE TRAVELS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <h1>Welcome to SHE TRAVELS</h1>
+
+    <!-- Profile Form (Shown initially) -->
+    <div id="profileForm">
+        <label for="profilePic">Upload Profile Picture:</label>
+        <input type="file" id="profilePic" accept="image/*" onchange="previewImage(event)">
+        <br>
+        <img id="profilePreview" src="" alt="Profile Picture Preview" style="display:none; width: 100px; height: 100px; border-radius: 50%;">
+        
+        <input type="text" id="username" placeholder="Enter your name">
+        <textarea id="bio" placeholder="Write your bio"></textarea>
+        <input type="text" id="instagram" placeholder="Instagram">
+        <input type="text" id="facebook" placeholder="Facebook">
+        <input type="text" id="twitter" placeholder="Twitter">
+        <input type="text" id="location" placeholder="Your Location">
+        
+        <button onclick="saveProfile()">Save Profile</button>
+    </div>
+
+    <!-- Profile Display (Shown after saving) -->
+    <div id="profileView" style="display:none;">
+        <img id="viewProfilePic" src="" alt="Profile Picture" style="width: 120px; height: 120px; border-radius: 50%; display: block; margin: 10px auto;">
+        <h2 id="viewUsername"></h2>
+        <p id="viewBio"></p>
+        
+        <h3>Socials:</h3>
+        <p><a id="viewInstagram" href="#" target="_blank">Instagram</a></p>
+        <p><a id="viewFacebook" href="#" target="_blank">Facebook</a></p>
+        <p><a id="viewTwitter" href="#" target="_blank">Twitter</a></p>
+        
+        <h3>Location:</h3>
+        <p id="viewLocation"></p>
+
+        <!-- Request and Message Icons -->
+        <div id="profileIcons">
+            <button onclick="sendRequest()">📩 Request</button>
+            <!-- Message Button (Now links to a new page) -->
+            <button onclick="window.location.href='/messages'">💬 Message</button>
+
+        </div>
+        
+        <button onclick="editProfile()">Edit Profile</button>
+    </div>
+
+    <a href="/explore">Go to Explore</a> | <a href="/activities">Go to Activities</a>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

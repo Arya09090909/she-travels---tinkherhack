@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Explore - SHE TRAVELS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Explore Places</h1>
+
+        <!-- Search Bar -->
+        <input type="text" id="searchBar" placeholder="Search...">
+        <button onclick="search()">🔍 Search</button>
+
+        <!-- Recommendations Section -->
+        <h2>Recommendations</h2>
+        <div class="icon-grid">
+            <div class="icon" onclick="openCategory('food')">
+                <img src="{{ url_for('static', filename='icons/food.png') }}" alt="Food">
+                <p>Food</p>
+            </div>
+            <div class="icon" onclick="openCategory('travel_spots')">
+                <img src="{{ url_for('static', filename='icons/travel.png') }}" alt="Travel">
+                <p>Travel Spots</p>
+            </div>
+            <div class="icon" onclick="openCategory('transport')">
+                <img src="{{ url_for('static', filename='icons/transport.png') }}" alt="Transport">
+                <p>Transport</p>
+            </div>
+            <div class="icon" onclick="openCategory('stay')">
+                <img src="{{ url_for('static', filename='icons/stay.png') }}" alt="Stay">
+                <p>Stay</p>
+            </div>
+        </div>
+
+        <!-- Suggested Users Section -->
+        <h2>Suggested Users Near You</h2>
+        <div id="suggestedUsers">
+            <p>Loading user recommendations...</p>
+        </div>
+
+        <a href="/">Back to Profile</a>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

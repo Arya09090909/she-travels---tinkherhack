@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Spots - SHE TRAVELS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        h1 {
+            color: #27ae60;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .travel-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: left;
+        }
+        .travel-card h3 {
+            margin: 0;
+            color: #2ecc71;
+        }
+        .travel-card p {
+            color: #7f8c8d;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Travel Spots Recommendations</h1>
+    <div id="travelList" class="container">
+        <p>Loading...</p>
+    </div>
+    <a href="/explore" class="back-link">⬅ Back to Explore</a>
+
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('/get_explore_data?category=travel_spots');
+                const data = await response.json();
+                let container = document.getElementById('travelList');
+                container.innerHTML = "";
+
+                if (data.length === 0) {
+                    container.innerHTML = "<p>No travel spot recommendations available.</p>";
+                    return;
+                }
+
+                data.forEach(item => {
+                    container.innerHTML += `
+                        <div class="travel-card">
+                            <h3>${item.name}</h3>
+                            <p>${item.description}</p>
+                        </div>`;
+                });
+            } catch (error) {
+                document.getElementById('travelList').innerHTML = "<p>⚠ Failed to load data. Please try again.</p>";
+            }
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>

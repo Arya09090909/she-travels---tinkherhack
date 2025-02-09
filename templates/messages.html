@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Messages - SHE TRAVELS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <h1>Requested Users</h1>
+
+    <ul id="requestedUsers">
+        <li>
+            <img src="https://via.placeholder.com/100" alt="User Image">
+            <a href="/profile/Aditi_Sharma"><span>Aditi Sharma (Mumbai, India)</span></a>
+            <button onclick="startChat('Aditi Sharma')">Chat</button>
+        </li>
+        <li>
+            <img src="/static/user2.jpg" alt="User 2" class="profile-pic">
+            <a href="/profile/Neha_Verma"><span>Neha Verma (Delhi, India)</span></a>
+            <button onclick="startChat('Neha Verma')">Chat</button>
+        </li>
+        <li>
+            <img src="/static/user3.jpg" alt="User 3" class="profile-pic">
+            <a href="/profile/Priya_Mehta"><span>Priya Mehta (Bangalore, India)</span></a>
+            <button onclick="startChat('Priya Mehta')">Chat</button>
+        </li>
+    </ul>
+
+    <button onclick="window.location.href='/'">⬅️ Back to Profile</button>
+
+    <script>
+        function startChat(userName) {
+            const usernameSlug = encodeURIComponent(userName.replace(/\s+/g, '_'));  // Convert to a URL-safe string
+            window.location.href = "/chat/" + usernameSlug;
+        }
+    </script>
+
+</body>
+</html>

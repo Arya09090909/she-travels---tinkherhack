@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user['username'] }} - Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <h1>{{ user['username'] }}</h1>
+    <img src="{{ user['profile_pic'] }}" alt="Profile Picture">
+    <p><strong>Bio:</strong> {{ user['bio'] }}</p>
+    <p><strong>Location:</strong> {{ user['location'] }}</p>
+
+    <h3>Social Links:</h3>
+    <p>
+        <a href="{{ user['instagram'] }}" target="_blank">Instagram</a> |
+        <a href="{{ user['facebook'] }}" target="_blank">Facebook</a> |
+        <a href="{{ user['twitter'] }}" target="_blank">Twitter</a>
+    </p>
+
+    <button onclick="window.location.href='/messages'">⬅️ Back to Messages</button>
+
+</body>
+</html>

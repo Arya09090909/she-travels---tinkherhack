@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activities</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/script.js" defer></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E3A8A;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #2563EB;
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .filter-section {
+            margin: 20px 0;
+        }
+        
+        .activities-list {
+            margin-top: 20px;
+        }
+
+        h3 {
+            background: #E0F2FE;
+            padding: 10px;
+            border-radius: 5px;
+            color: #1E40AF;
+            text-align: left;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        li {
+            background: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Daily Activities</h1>
+        <button class="emergency-btn" onclick="handleEmergency()">🚨 Emergency</button>
+    </header>
+    
+    <section class="filter-section">
+        <label for="date-filter">Filter by Date:</label>
+        <input type="date" id="date-filter">
+        <button onclick="filterActivities()">Search</button>
+    </section>
+    
+    <section class="activities-list">
+        <h2>Your Activities</h2>
+        <h3>Today</h3>
+        <ul id="today-activities"></ul>
+
+        <h3>This Week</h3>
+        <ul id="week-activities"></ul>
+
+        <h3>Last Month</h3>
+        <ul id="month-activities"></ul>
+    </section>
+
+    <script>
+        // Example activities data (Replace with data from backend)
+        const activities = [
+            { name: "Visited Red Fort", date: "2025-02-08" },
+            { name: "Explored a new café", date: "2025-02-05" },
+            { name: "Took a road trip", date: "2025-01-30" }
+        ];
+
+        function categorizeActivities() {
+            const todayList = document.getElementById("today-activities");
+            const weekList = document.getElementById("week-activities");
+            const monthList = document.getElementById("month-activities");
+
+            todayList.innerHTML = "";
+            weekList.innerHTML = "";
+            monthList.innerHTML = "";
+
+            const today = new Date();
+            const oneWeekAgo = new Date();
+            oneWeekAgo.setDate(today.getDate() - 7);
+
+            const oneMonthAgo = new Date();
+            oneMonthAgo.setMonth(today.getMonth() - 1);
+
+            activities.forEach(activity => {
+                const activityDate = new Date(activity.date);
+                const listItem = document.createElement("li");
+                listItem.textContent = `${activity.name} - ${activity.date}`;
+
+                if (activityDate.toDateString() === today.toDateString()) {
+                    todayList.appendChild(listItem);
+                } else if (activityDate >= oneWeekAgo) {
+                    weekList.appendChild(listItem);
+                } else if (activityDate >= oneMonthAgo) {
+                    monthList.appendChild(listItem);
+                }
+            });
+        }
+
+        function filterActivities() {
+            const selectedDate = document.getElementById("date-filter").value;
+            if (!selectedDate) return;
+
+            const todayList = document.getElementById("today-activities");
+            const weekList = document.getElementById("week-activities");
+            const monthList = document.getElementById("month-activities");
+
+            todayList.innerHTML = "";
+            weekList.innerHTML = "";
+            monthList.innerHTML = "";
+
+            const filteredList = activities.filter(activity => activity.date === selectedDate);
+            if (filteredList.length === 0) {
+                alert("No activities found for this date.");
+                return;
+            }
+
+            filteredList.forEach(activity => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${activity.name} - ${activity.date}`;
+                todayList.appendChild(listItem);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", categorizeActivities);
+    </script>
+</body>
+</html>
